@@ -8,11 +8,21 @@ import {
   Alert,
   Box,
   Chip,
-  Paper
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem
 } from '@mui/material';
+
+const AVAILABLE_MODELS = [
+  { value: 'qwen3-embedding:0.6b', label: 'Qwen3 0.6B (1024 dim)', dimensions: 1024, size: '639 MB' },
+  { value: 'qwen3-embedding:4b', label: 'Qwen3 4B (2560 dim)', dimensions: 2560, size: '2.5 GB' }
+];
 
 export default function EmbeddingDisplay() {
   const [prompt, setPrompt] = useState('');
+  const [selectedModel, setSelectedModel] = useState(AVAILABLE_MODELS[0].value);
   const [embedding, setEmbedding] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -31,7 +41,7 @@ export default function EmbeddingDisplay() {
       const response = await fetch('/embedding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input: prompt })
+        body: JSON.stringify({ input: prompt, model: selectedModel })
       });
 
       const data = await response.json();
@@ -85,6 +95,24 @@ export default function EmbeddingDisplay() {
             Generate Embedding
           </Typography>
           <Box sx={{ display: 'flex', gap: 2, flexDirection: 'column' }}>
+            <FormControl fullWidth>
+              <InputLabel>Embedding Model</InputLabel>
+              <Select
+                value={selectedModel}
+                label="Embedding Model"
+                onChange={(e) => setSelectedModel(e.target.value)}
+                disabled={loading}
+              >
+                {AVAILABLE_MODELS.map((model) => (
+                  <MenuItem key={model.value} value={model.value}>
+                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
+                      <Typography>{model.label}</Typography>
+                      <Chip label={model.size} size="small" variant="outlined" sx={{ ml: 2 }} />
+                    </Box>
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <TextField
               fullWidth
               multiline

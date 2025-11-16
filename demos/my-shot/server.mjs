@@ -128,7 +128,7 @@ app.post("/vectorstore/similarity", async (req, res) => {
 
 // POST /embedding - Batch embeddings endpoint (OpenAI-compatible format)
 app.post("/embedding", async (req, res) => {
-  const { input } = req.body || {};
+  const { input, model } = req.body || {};
 
   // Support both single string and array of strings
   const inputs = Array.isArray(input) ? input : [input];
@@ -137,9 +137,18 @@ app.post("/embedding", async (req, res) => {
     return res.status(400).json({ error: "Input must be a non-empty string or array of strings" });
   }
 
+  // Use provided model or default
+  const embeddingModel = model || OLLAMA_EMBEDDING_MODEL;
+
   try {
+    // Create embeddings instance with the selected model
+    const modelEmbeddings = new OllamaEmbeddings({
+      model: embeddingModel,
+      baseUrl: OLLAMA_BASE_URL,
+    });
+
     // Generate embeddings for all inputs
-    const embeddingPromises = inputs.map(text => embeddings.embedQuery(text));
+    const embeddingPromises = inputs.map(text => modelEmbeddings.embedQuery(text));
     const vectors = await Promise.all(embeddingPromises);
 
     // Format response to match OpenAI API format
@@ -152,7 +161,7 @@ app.post("/embedding", async (req, res) => {
     return res.json({
       object: "list",
       data: data,
-      model: OLLAMA_EMBEDDING_MODEL
+      model: embeddingModel
     });
   } catch (err) {
     return res.status(502).json({ error: "Ollama request failed", details: String(err) });
