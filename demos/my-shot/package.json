@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/icons-material": "^7.3.5",
+    "@thi.ng/tsne": "^0.1.44",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "latest"

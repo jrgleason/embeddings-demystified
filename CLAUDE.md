@@ -50,9 +50,14 @@ Vector Databases/
 │   ├── design.md            # Presentation architecture and flow
 │   └── outline.md           # Detailed 2-hour presentation outline
 ├── demos/                   # Live demo code
-│   ├── 01_simple_search/    # 20-line semantic search
-│   ├── 02_rag_chatbot/      # RAG-powered chatbot
-│   └── 03_doc_similarity/   # Document similarity search
+│   ├── basic_embedding/     # Basic t-SNE embedding visualization
+│   ├── my-shot/             # Interactive React demo (main demo app)
+│   │   ├── Vector Store     # Add/search/clear vector embeddings
+│   │   ├── t-SNE Viz        # Interactive word embedding visualization
+│   │   └── Embedding        # Display raw embedding vectors
+│   ├── 01_simple_search/    # 20-line semantic search (planned)
+│   ├── 02_rag_chatbot/      # RAG-powered chatbot (planned)
+│   └── 03_doc_similarity/   # Document similarity search (planned)
 ├── slides/                  # Presentation materials
 └── notebooks/               # Jupyter notebooks for exploration
 ```
@@ -175,9 +180,34 @@ Each demo must:
 
 ### Required Tools
 - Python 3.10+
+- Node.js 18+ (for React demos)
 - Jupyter Notebook
 - Vector database (Pinecone or Chroma)
-- OpenAI API key (for demos)
+- Ollama (for local embeddings)
+- OpenAI API key (for cloud demos)
+
+### JavaScript/Node.js Stack (my-shot demo)
+```json
+{
+  "dependencies": {
+    "react": "latest",
+    "react-dom": "latest",
+    "react-router-dom": "latest",
+    "@mui/material": "latest",
+    "@mui/icons-material": "latest",
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@langchain/classic": "latest",
+    "@langchain/core": "latest",
+    "@langchain/ollama": "latest",
+    "@thi.ng/tsne": "latest",
+    "express": "latest",
+    "vite": "latest",
+    "vite-express": "latest",
+    "tailwindcss": "latest"
+  }
+}
+```
 
 ### Python Packages
 ```
@@ -194,9 +224,15 @@ python-dotenv
 ```
 
 ### Environment Variables
-```
+```bash
+# For cloud-based demos
 OPENAI_API_KEY=your_key_here
 PINECONE_API_KEY=your_key_here  # if using Pinecone
+
+# For local Ollama demos (my-shot)
+OLLAMA_BASE_URL=http://localhost:11434  # or your Ollama server
+OLLAMA_MODEL=qwen3:0.6b
+OLLAMA_EMBEDDING_MODEL=qwen3-embedding:0.6b
 ```
 
 ---
@@ -237,22 +273,67 @@ PINECONE_API_KEY=your_key_here  # if using Pinecone
 
 ## Demo Descriptions
 
+### Interactive Demo: my-shot (React Web App)
+**Goal:** Interactive visualization and exploration of vector embeddings
+**Tech:** React + Material-UI + LangChain + Ollama + Express
+**Status:** ✅ Implemented
+**Pages:**
+
+1. **Vector Store** (`/vector-store`)
+   - Add prompts and generate embeddings
+   - Search for similar prompts using cosine similarity
+   - Display embedding dimensions and vector previews
+   - Clear vector store
+   - **Key Learning:** Practical vector store operations
+
+2. **t-SNE Visualization** (`/tsne-viz`)
+   - Interactive word management (add/edit/remove)
+   - Dimensionality reduction using t-SNE algorithm
+   - 2D canvas visualization with color-coded words
+   - Shows coordinates and distances between words
+   - **Key Learning:** How high-dimensional embeddings can be visualized
+
+3. **Embedding Display** (`/embedding-display`)
+   - Generate embeddings for any text input
+   - Display full embedding vector (scrollable)
+   - Show vector statistics (min, max, mean)
+   - View embedding dimensions
+   - **Key Learning:** Understanding raw embedding vectors
+
+**Backend Features:**
+- `/embedding` - Batch embeddings endpoint (OpenAI-compatible format)
+- `/vectorstore/add` - Add embeddings to in-memory vector store
+- `/vectorstore/similarity` - Similarity search with configurable k
+- `/vectorstore/clear` - Clear all stored embeddings
+- Uses Ollama with qwen3-embedding:0.6b model (1024 dimensions)
+
+**To Run:**
+```bash
+cd demos/my-shot
+npm install
+npm run dev
+# Visit http://localhost:3000
+```
+
 ### Demo 1: Simple Semantic Search (20 lines)
 **Goal:** Show how to build basic semantic search
 **Tech:** OpenAI embeddings + in-memory vector store
 **Time:** 10 minutes
+**Status:** Planned
 **Key Learning:** Embeddings + similarity search = semantic understanding
 
 ### Demo 2: RAG-Powered Chatbot
 **Goal:** Build a chatbot that answers questions from your documents
 **Tech:** LangChain + Pinecone/Chroma + OpenAI
 **Time:** 15 minutes
+**Status:** Planned
 **Key Learning:** RAG prevents hallucinations by grounding responses
 
 ### Demo 3: Document Similarity Search
 **Goal:** Find similar documents in a corpus
 **Tech:** Sentence transformers + FAISS or Chroma
 **Time:** 10 minutes
+**Status:** Planned
 **Key Learning:** Real-world application of vector search
 
 ---
@@ -325,5 +406,17 @@ PINECONE_API_KEY=your_key_here  # if using Pinecone
 
 ---
 
-**Last Updated:** 2025-10-04
-**Status:** Planning Phase - Content Development
+**Last Updated:** 2025-11-16
+**Status:** Implementation Phase - Interactive Demo Complete
+
+## Recent Updates
+
+### 2025-11-16
+- ✅ Implemented complete my-shot React demo application
+- ✅ Added Vector Store page with add/search/clear functionality
+- ✅ Added t-SNE Visualization page with interactive word management
+- ✅ Added Embedding Display page showing raw vectors
+- ✅ Created batch embeddings endpoint (OpenAI-compatible)
+- ✅ Integrated Ollama with qwen3-embedding:0.6b model
+- ✅ Material-UI components throughout for consistent design
+- 📦 Installed dependencies: @thi.ng/tsne, @mui/icons-material

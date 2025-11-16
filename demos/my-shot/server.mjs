@@ -126,6 +126,39 @@ app.post("/vectorstore/similarity", async (req, res) => {
   }
 });
 
+// POST /embedding - Batch embeddings endpoint (OpenAI-compatible format)
+app.post("/embedding", async (req, res) => {
+  const { input } = req.body || {};
+
+  // Support both single string and array of strings
+  const inputs = Array.isArray(input) ? input : [input];
+
+  if (!inputs.length || inputs.some(i => typeof i !== "string" || i.trim() === "")) {
+    return res.status(400).json({ error: "Input must be a non-empty string or array of strings" });
+  }
+
+  try {
+    // Generate embeddings for all inputs
+    const embeddingPromises = inputs.map(text => embeddings.embedQuery(text));
+    const vectors = await Promise.all(embeddingPromises);
+
+    // Format response to match OpenAI API format
+    const data = vectors.map((embedding, index) => ({
+      object: "embedding",
+      index: index,
+      embedding: embedding
+    }));
+
+    return res.json({
+      object: "list",
+      data: data,
+      model: OLLAMA_EMBEDDING_MODEL
+    });
+  } catch (err) {
+    return res.status(502).json({ error: "Ollama request failed", details: String(err) });
+  }
+});
+
 // Legacy endpoint - kept for backwards compatibility
 app.post("/ai/embedding", async (req, res) => {
   const { prompt } = req.body || {};
