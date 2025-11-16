@@ -4,4 +4,6 @@
 out
 build
 tmp
-
+*.iml
+.vscode
+node_modules
