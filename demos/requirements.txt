@@ -1,0 +1,18 @@
+# Core dependencies for Vector Database demos
+redis==5.0.1
+redis-om==0.2.1
+openai==1.12.0
+numpy==1.26.4
+pandas==2.2.0
+python-dotenv==1.0.1
+
+# For embeddings and vector operations
+sentence-transformers==2.3.1
+
+# Optional: For visualization
+matplotlib==3.8.2
+seaborn==0.13.1
+
+# Development tools
+jupyter==1.0.0
+ipython==8.20.0

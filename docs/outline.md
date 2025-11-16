@@ -5,6 +5,11 @@
 **Format:** Technical presentation with live demos
 **Audience:** Developers (basic Python knowledge, no ML background required)
 
+## Legend
+- 🟣 Slide content developed and detailed
+- ⬜ Slide outlined but needs detailed content
+- 🔄 Slide marked for breakdown into multiple slides
+
 ---
 
 ## Timeline Overview
@@ -23,7 +28,7 @@
 
 ## INTRODUCTION & HOOK (0:00 - 0:05)
 
-### Slide 1: Title Slide (0:00 - 0:01)
+### 🟣 Slide 1: Title Slide (0:00 - 0:01)
 **Content:**
 - Title: "Vector Databases and Embeddings Demystified"
 - Subtitle: "Building AI-Powered Search in Python"
@@ -37,7 +42,7 @@
 
 ---
 
-### Slide 2: The Mystery (0:01 - 0:03)
+### 🟣 Slide 2: The Mystery (0:01 - 0:03)
 **Content:**
 - "How does Netflix know you'll love that obscure documentary?"
 - "How does Google Photos find every picture of your dog?"
@@ -82,7 +87,7 @@
 
 ---
 
-### Slide 3: The Secret Sauce (0:03 - 0:05)
+### 🔄 Slide 3: The Secret Sauce (0:03 - 0:05) - NEEDS BREAKDOWN
 **Content:**
 - "The secret: Vector Embeddings + Similarity Search"
 - "Transform data → numerical representations → find similar"
@@ -157,7 +162,7 @@ Returns: "Interstellar", "Arrival", "The Martian"
 
 ---
 
-### Slide 4: Agenda (0:05 - 0:06)
+### 🟣 Slide 4: What is a Vector? (0:05 - 0:08)
 **Content:**
 - Part 1: Foundations (30 min)
 - Part 2: How It Works (30 min)
@@ -171,7 +176,7 @@ Returns: "Interstellar", "Arrival", "The Martian"
 
 ---
 
-### Slide 5: What is a Vector Embedding? (0:06 - 0:10)
+### 🟣 Slide 5: High-Dimensional Space (0:08 - 0:11)
 **Content:**
 - "A vector is just a list of numbers"
 - "An embedding captures semantic meaning"
@@ -272,7 +277,7 @@ embedding = response.data[0].embedding  # List of 1536 numbers
 
 ---
 
-### Slide 6: The Famous Example - Word Arithmetic (0:10 - 0:13)
+### 🟣 Slide 6: Measuring Similarity (0:11 - 0:15)
 **Content:**
 - **king - man + woman = queen**
 - "Vectors capture relationships!"
@@ -305,7 +310,7 @@ embedding = response.data[0].embedding  # List of 1536 numbers
 
 ---
 
-### Slide 7: Similarity Metrics - Measuring Distance (0:13 - 0:18)
+### 🟣 Slide 7: The Famous King-Queen Example (0:15 - 0:18)
 **Content:**
 - "How do we measure if two vectors are similar?"
 - Three main approaches
@@ -376,7 +381,7 @@ distance = sqrt((3-6)² + (4-8)²) = sqrt(9 + 16) = 5.0
 
 ---
 
-### Slide 8: Database Types Comparison (0:18 - 0:22)
+### 🟣 Slide 8: Part 2 Introduction - Vector Databases (0:18 - 0:20)
 **Content:**
 - "Understanding the Database Landscape"
 
@@ -470,7 +475,9 @@ User makes purchase:
 
 ---
 
-### Slide 9: How Vectors Enable "Find Similar" (0:22 - 0:25)
+### 🟣 Slide 9a: HNSW (0:20 - 0:22)
+### 🟣 Slide 9b: IVF & Product Quantization (0:22 - 0:24)
+### 🟣 Slide 9c: Algorithm Comparison (0:24 - 0:25)
 **Content:**
 - "Traditional DB Problem: How to find similar?"
 
@@ -511,7 +518,7 @@ similar_movies = db.search(
 
 ---
 
-### Slide 10: Vector Database Use Cases (0:25 - 0:28)
+### ⬜ Slide 10: Vector Database Use Cases (0:25 - 0:28)
 **Content:**
 - "Where are vector databases used?"
 
@@ -543,7 +550,7 @@ similar_movies = db.search(
 
 ---
 
-### Slide 11: Interactive Check-In (0:28 - 0:30)
+### ⬜ Slide 11: Interactive Check-In (0:28 - 0:30)
 **Content:**
 - "Quick Check: Can you explain to a colleague?"
 
@@ -564,7 +571,7 @@ similar_movies = db.search(
 
 ---
 
-### Slide 12: Part 1 Recap (0:30 - 0:35)
+### ⬜ Slide 12: Part 1 Recap (0:30 - 0:35)
 **Content:**
 - "What We Learned"
 
@@ -592,7 +599,7 @@ similar_movies = db.search(
 
 ---
 
-### Slide 13: How Vector Databases Work (0:35 - 0:38)
+### ⬜ Slide 13: How Vector Databases Work (0:35 - 0:38)
 **Content:**
 - "Under the Hood"
 
@@ -637,7 +644,7 @@ similar_movies = db.search(
 
 ---
 
-### Slide 14: The Challenge - Billion-Scale Search (0:38 - 0:40)
+### ⬜ Slide 14: The Challenge - Billion-Scale Search (0:38 - 0:40)
 **Content:**
 - "Why can't we just compare every vector?"
 
@@ -665,7 +672,7 @@ Vector Index: Smart data structure
 
 ---
 
-### Slide 15: Algorithm 1 - HNSW (0:40 - 0:47)
+### ⬜ Slide 15: Algorithm 1 - HNSW (0:40 - 0:47)
 **Content:**
 - "Hierarchical Navigable Small World"
 - Most popular modern algorithm
@@ -734,7 +741,7 @@ labels, distances = index.knn_query(query_vector, k=10)
 
 ---
 
-### Slide 16: Algorithm 2 - Product Quantization (0:47 - 0:52)
+### ⬜ Slide 16: Algorithm 2 - Product Quantization (0:47 - 0:52)
 **Content:**
 - "Compress vectors to save memory"
 
@@ -801,7 +808,7 @@ Compression: 768x smaller!
 
 ---
 
-### Slide 17: Algorithm 3 - LSH (0:52 - 0:56)
+### ⬜ Slide 17: Algorithm 3 - LSH (0:52 - 0:56)
 **Content:**
 - "Locality-Sensitive Hashing"
 - Hash similar items to same buckets
@@ -868,7 +875,7 @@ Hash Buckets:
 
 ---
 
-### Slide 18: Algorithm Comparison (0:56 - 0:58)
+### ⬜ Slide 18: Algorithm Comparison (0:56 - 0:58)
 **Content:**
 - "Which algorithm should you use?"
 
@@ -901,7 +908,7 @@ Billion-scale?
 
 ---
 
-### Slide 19: Metadata Filtering (0:58 - 1:01)
+### ⬜ Slide 19: Metadata Filtering (0:58 - 1:01)
 **Content:**
 - "Combining vector search with filters"
 
@@ -957,7 +964,7 @@ results = index.query(
 
 ---
 
-### Slide 20: Vector Database Options (1:01 - 1:04)
+### ⬜ Slide 20: Vector Database Options (1:01 - 1:04)
 **Content:**
 - "Choosing the Right Vector Database"
 
@@ -989,7 +996,7 @@ Research/offline? → FAISS
 
 ---
 
-### Slide 21: GraphRAG Introduction (1:04 - 1:05)
+### ⬜ Slide 21: GraphRAG Introduction (1:04 - 1:05)
 **Content:**
 - "Beyond Traditional RAG: GraphRAG"
 
@@ -1034,7 +1041,7 @@ Traditional RAG:
 
 ---
 
-### Slide 22: Serverless Architecture (1:05 - 1:06)
+### ⬜ Slide 22: Serverless Architecture (1:05 - 1:06)
 **Content:**
 - "Modern vector databases: Serverless"
 
@@ -1100,7 +1107,7 @@ Cold start issues
 
 ---
 
-### Slide 23: Part 2 Recap (1:06 - 1:05)
+### ⬜ Slide 23: Part 2 Recap (1:06 - 1:05)
 **Content:**
 - "What We Learned"
 
@@ -1146,7 +1153,7 @@ Cold start issues
 
 ---
 
-### Slide 23: Welcome Back - What We'll Build (1:15 - 1:16)
+### ⬜ Slide 23: Welcome Back - What We'll Build (1:15 - 1:16)
 **Content:**
 - "Three Hands-On Demos"
 
@@ -1732,7 +1739,7 @@ Query: Spilled water on keyboard, laptop won't start
 
 ---
 
-### Slide 30: Demos Recap (1:51 - 1:55)
+### ⬜ Slide 30: Demos Recap (1:51 - 1:55)
 **Content:**
 - "Three Demos, One Concept"
 
@@ -1772,7 +1779,7 @@ Query: Spilled water on keyboard, laptop won't start
 
 ---
 
-### Slide 31: Production Use Cases (1:55 - 1:58)
+### ⬜ Slide 31: Production Use Cases (1:55 - 1:58)
 **Content:**
 - "Vector Databases in the Wild"
 
@@ -1859,7 +1866,7 @@ Return connected papers with relationships
 
 ---
 
-### Slide 32: Scaling Considerations (1:58 - 2:01)
+### ⬜ Slide 32: Scaling Considerations (1:58 - 2:01)
 **Content:**
 - "From Demo to Production"
 
@@ -1915,7 +1922,7 @@ Improve:
 
 ---
 
-### Slide 33: Vector Database Selection (2:01 - 2:03)
+### ⬜ Slide 33: Vector Database Selection (2:01 - 2:03)
 **Content:**
 - "Choosing the Right Vector Database"
 
@@ -1953,7 +1960,7 @@ Already use Postgres: PGVector
 
 ---
 
-### Slide 34: When NOT to Use Vector Databases (2:03 - 2:04)
+### ⬜ Slide 34: When NOT to Use Vector Databases (2:03 - 2:04)
 **Content:**
 - "Vector DBs Are Not Always the Answer"
 
@@ -2003,7 +2010,7 @@ Use Vector DB When:
 
 ---
 
-### Slide 35: Part 4 Recap (2:04 - 2:05)
+### ⬜ Slide 35: Part 4 Recap (2:04 - 2:05)
 **Content:**
 - "Production Reality Check"
 
@@ -2021,7 +2028,7 @@ Use Vector DB When:
 
 ## Q&A & WRAP-UP (2:05 - 2:15)
 
-### Slide 36: Open Q&A (2:05 - 2:13)
+### ⬜ Slide 36: Open Q&A (2:05 - 2:13)
 **Content:**
 - "Your Questions"
 
@@ -2047,7 +2054,7 @@ A: Yes, most databases support updates. May require re-indexing.
 
 ---
 
-### Slide 37: Resources & Next Steps (2:13 - 2:14)
+### ⬜ Slide 37: Resources & Next Steps (2:13 - 2:14)
 **Content:**
 - "Continue Your Learning"
 
@@ -2076,7 +2083,7 @@ A: Yes, most databases support updates. May require re-indexing.
 
 ---
 
-### Slide 38: Thank You! (2:14 - 2:15)
+### ⬜ Slide 38: Thank You! (2:14 - 2:15)
 **Content:**
 - "Thank You for Attending!"
 

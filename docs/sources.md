@@ -319,9 +319,299 @@ This document tracks all sources used in developing the "Vector Databases and Em
 
 ---
 
+---
+
+## Vector and Embedding Fundamentals Research
+
+### 12. Pinecone - What are Vector Embeddings
+**URL:** https://www.pinecone.io/learn/vector-embeddings/
+**Title:** What are Vector Embeddings
+**Date Accessed:** 2025-10-31
+**Key Topics:**
+- Vector embeddings as central to ML, NLP, recommendation, and search algorithms
+- Vector embeddings as lists of numbers for performing operations
+- Semantic similarity translation to proximity in vector space
+- Creating vector embeddings: feature engineering vs. model training
+- Example: Image embedding with Convolutional Neural Network
+- Using vector embeddings for similarity search, clustering, recommendations, anomaly detection
+
+**Key Concepts:**
+- Vector embeddings represent objects (documents, images, audio) as numerical vectors
+- Deep neural networks are common tools for training embedding models
+- Resulting embeddings are high-dimensional (up to 2,000 dimensions) and dense
+- Text models: Word2Vec, GLoVE, BERT
+- Image models: VGG, Inception (CNNs)
+- K-Nearest-Neighbor index for similarity search
+- Encoder-decoder architectures rely on embeddings
+
+**Key Takeaways:**
+- Vector embeddings make it possible to translate semantic similarity to proximity in vector space
+- When real-world objects are represented as vector embeddings, semantic similarity can be quantified by distance
+- Vector representations suitable for clustering, recommendation, and classification tasks
+- CNNs process images via hierarchical local receptive fields with convolution and subsampling operations
+- Learning network weights requires large sets of labeled data
+
+---
+
+### 13. OpenAI - Vector Embeddings API Documentation
+**URL:** https://platform.openai.com/docs/guides/embeddings
+**Title:** Vector embeddings - OpenAI API
+**Date Accessed:** 2025-10-31
+**Key Topics:**
+- Embeddings measure relatedness of text strings
+- Applications: search, clustering, recommendations, anomaly detection, diversity measurement, classification
+- Embedding as vector (list) of floating point numbers
+- Distance between vectors measures relatedness
+- API usage and implementation examples
+
+**Key Concepts:**
+- An embedding is a vector of floating point numbers
+- Distance between two vectors measures their relatedness
+- Small distances = high relatedness, large distances = low relatedness
+- API endpoint: embeddings.create with model and input parameters
+- Default dimensions: 1,536 (text-embedding-3-small) or 3,072 (text-embedding-3-large)
+- Dimensionality reduction supported without losing concept-representing properties
+
+**Embedding Models:**
+- text-embedding-3-small: 62,500 pages/$, 62.3% MTEB performance, 8,192 max input
+- text-embedding-3-large: 9,615 pages/$, 64.6% MTEB performance, 8,192 max input
+- text-embedding-ada-002: 12,500 pages/$, 61.0% MTEB performance, 8,192 max input
+
+**Use Cases:**
+- Question answering using embeddings-based search
+- Text search, code search
+- Product recommendations
+- Data visualization in 2D
+- Classification using embedding features
+- Zero-shot classification
+- Clustering and anomaly detection
+
+**Technical Details:**
+- Use tiktoken for token counting (cl100k_base encoding for v3 models)
+- Cosine similarity recommended for distance function
+- OpenAI embeddings normalized to length 1
+- Cosine similarity and Euclidean distance produce identical rankings
+- Customers own their embeddings (can share publicly)
+- V3 models lack knowledge of events after September 2021
+
+---
+
+### 14. Google ML Crash Course - Embeddings
+**URL:** https://developers.google.com/machine-learning/crash-course/embeddings
+**Title:** Embeddings | Machine Learning | Google for Developers
+**Date Accessed:** 2025-10-31
+**Key Topics:**
+- Pitfalls of sparse data representations (one-hot encoding)
+- Embeddings as lower-dimensional representations of sparse data
+- Problems with large input vectors: number of weights, data requirements, computation, memory
+- Difficulty of supporting on-device machine learning (ODML)
+
+**Key Concepts:**
+- One-hot encoding creates massive sparse vectors (vocabulary size = vector length)
+- Example: 5,000 menu items = 5,000-dimension vector with single 1 and 4,999 zeros
+- Large input vectors mean huge number of weights (M inputs × N nodes)
+- More weights require more data, computation, and memory
+- Embeddings solve these problems by creating dense, lower-dimensional representations
+
+**Problems with Sparse Representations:**
+1. **Number of weights**: M entries in one-hot × N nodes in first layer = MxN weights to train
+2. **Number of datapoints**: More weights require proportionally more training data
+3. **Amount of computation**: More weights = more computation to train and use model
+4. **Amount of memory**: More weights = more memory needed on accelerators
+5. **ODML difficulty**: Smaller models needed for local devices, must decrease weights
+
+**Key Takeaways:**
+- Embeddings create lower-dimensional representations that address sparse data problems
+- Visualize vector representations of word embeddings (e.g., word2vec)
+- Distinguish encoding (initial representation) from embedding (learned representation)
+- Contextual embeddings capture meaning based on context
+- Learned embeddings enable models to generalize better than hand-crafted features
+
+---
+
+### 15. IBM - What is Embedding?
+**URL:** https://www.ibm.com/think/topics/embedding
+**Title:** What is Embedding? | IBM
+**Date Accessed:** 2025-10-31
+**Key Topics:**
+- Embedding as means of representing objects in continuous vector space
+- Semantic meaningfulness for machine learning algorithms
+- Creating embeddings through "embedding learning"
+- Applications across NLP, computer vision, recommender systems, cross-modal applications
+
+**Key Concepts:**
+- Objects (text, images, audio) represented as points in continuous vector space
+- Locations semantically meaningful to ML algorithms
+- Enables ML models to find similar objects
+- Learned from data using neural networks instead of explicit human expertise
+- Captures complex patterns and relationships impossible for humans to identify
+
+**How Embedding Works:**
+- Objects → embedding model → output as vectors (arrays of numbers)
+- Each number indicates position along a specified dimension
+- Number of dimensions can reach 1,000+ depending on input complexity
+- Closer embeddings in n-dimensional space = more similar objects
+- Distance measured by Euclidean, cosine, or other metrics
+
+**Word2Vec Example (Google 2013):**
+- Two-layer neural network for efficient word embedding creation
+- Input: word → Output: n-dimensional coordinate (embedding vector)
+- Synonyms cluster when plotted in 3D space
+- Example vectors:
+  - "dad" = [0.1548, 0.4848, ..., 1.864]
+  - "mom" = [0.8785, 0.8974, ..., 2.794]
+
+**Recommendation Embedding Example:**
+- Represent users and items as high-dimensional vectors
+- Embeddings capture latent features reflecting preferences and characteristics
+- Dot product of user × item embedding = recommendation score
+- Higher dot product = higher interest likelihood
+- Recommendation Score = UserEmbedding · ItemEmbedding
+
+**Why Use Embedding:**
+1. **Semantic representation**: Capture relationships and similarities
+2. **Dimensionality reduction**: Transform high-dimensional to lower-dimensional
+3. **Improved generalization**: Better performance with limited labeled data
+4. **Effective visualization**: t-SNE for visualizing high-dimensional embeddings
+5. **Efficient neural network training**: Embedding layers facilitate backpropagation
+
+**Types of Embeddings:**
+- **Words**: Word2Vec, GloVe, FastText, BERT, GPT
+- **Text**: Doc2Vec, Universal Sentence Encoder, ELMO
+- **Images**: VGG, ResNet, Inception, EfficientNet (CNNs)
+- **Audio**: RNNs, CNNs, hybrid models
+- **Graphs**: Node classification, link prediction, community detection
+
+**Creating Embeddings Process:**
+1. Choose or train embedding model
+2. Prepare data (tokenization, normalization, resizing)
+3. Load or train the model weights
+4. Generate embeddings for each data point
+5. Integrate embeddings into application (ML features, similarity search, recommendations)
+
+**Real-World Applications:**
+- **NLP**: Word embeddings in sentiment analysis, BERT for question answering, Doc2Vec for text similarity
+- **Computer Vision**: Image classification with CNNs, image retrieval with CLIP, facial recognition with FaceNet
+- **Recommender Systems**: Collaborative filtering, product recommendations with word embeddings
+- **Cross-Modal**: MUSE for multimodal translation, joint embeddings for cross-modal search
+- **Anomaly Detection**: Network anomaly with graph embeddings, fraud detection with transaction embeddings
+
+---
+
+## Embedding Models Research
+
+### 8. Text Embedding Models Comparison 2024-2025
+**URLs:**
+- https://document360.com/blog/text-embedding-model-analysis/
+- https://elephas.app/blog/best-embedding-models
+- https://research.aimultiple.com/embedding-models/
+**Date Accessed:** 2025-10-17
+
+**Key Findings:**
+- **OpenAI Models:**
+  - text-embedding-3-small (1,536 dims): $0.02/1M tokens
+  - text-embedding-3-large (3,072 dims): $0.13/1M tokens
+  - Support dimension reduction without major quality loss
+
+- **Voyage AI Models:**
+  - voyage-3: Outperforms OpenAI v3-large by 7.55% on average
+  - voyage-3-large: #1 across 8 evaluated domains, 100 datasets
+  - voyage-3 costs 2.2x less than OpenAI v3-large ($0.06 vs $0.13/1M tokens)
+  - voyage-law-2: #1 on MTEB legal retrieval, +6% vs OpenAI v3-large
+  - voyage-code-2: State-of-the-art code embedding model
+
+- **Google Gemini:**
+  - text-embedding-004 (768 dims): FREE with 1,500 RPM limit
+  - Solid performance for free tier
+  - Best value for small businesses and prototypes
+
+- **Cohere:**
+  - embed-english-v3.0 (1,024 dims)
+  - embed-multilingual-v3.0: Strong multilingual support
+  - Compression-aware embeddings
+
+**Benchmark Results (500K Amazon reviews):**
+- Mistral-embed: 77.8% accuracy (highest)
+- Google Gemini: 71.5% accuracy
+- Voyage-3.5-lite: 66.1% accuracy at lowest cost
+- OpenAI v3-large: Good but not leader in accuracy
+
+### 9. Open Source Embedding Models
+**URLs:**
+- https://codesphere.com/articles/best-open-source-sentence-embedding-models
+- https://github.com/UKPLab/sentence-transformers
+- https://huggingface.co/sentence-transformers
+**Date Accessed:** 2025-10-17
+
+**Key Findings:**
+- **Sentence Transformers Framework:**
+  - 15,000+ pre-trained models on Hugging Face
+  - Supports BERT, RoBERTa, XLM-R, DistilBERT, Electra, BART
+  - MTEB leaderboard for model comparison
+
+- **Top Performing Models:**
+  - bge-en-icl: 7.11B parameters, highest overall MTEB score
+  - all-MiniLM-L6-v2 (384 dims): Fast, lightweight
+  - all-mpnet-base-v2 (768 dims): Better quality
+  - bge-large-en-v1.5 (1,024 dims): Top open source
+
+- **Recent Developments:**
+  - Static retrieval models: 100-400x faster on CPU
+  - Reach 85%+ performance of larger models
+  - Maturity-Relative Logarithmic (MRL) techniques
+
+### 10. Domain-Specific Embedding Models
+**URLs:**
+- https://blog.voyageai.com/2024/04/15/domain-specific-embeddings-and-retrieval-legal-edition-voyage-law-2/
+- https://arxiv.org/html/2505.13482v1 (MedEIR)
+- https://zilliz.com/ai-faq/what-embedding-models-are-optimized-for-medicalhealthcare-data
+**Date Accessed:** 2025-10-17
+
+**Key Findings:**
+- **Legal Domain:**
+  - voyage-law-2: Tops MTEB legal retrieval leaderboard
+  - Trained on legal documents, case law, contracts
+
+- **Medical Domain:**
+  - MedEIR: First model combining domain-adapted tokenization with ALiBi long-context
+  - BioBERT, ClinicalBERT, PubMedBERT, SapBERT
+  - ClinicalBERT: Trained on MIMIC-III ICU patient notes
+  - Optimized for RAG pipelines in healthcare
+
+- **Code Domain:**
+  - voyage-code-2: State-of-the-art code embedding
+  - CodeBERT: Microsoft's code understanding model
+  - Better at understanding function intent and similarity
+
+**Research Insight:**
+- Domain-specific models significantly outperform general models in specialized fields
+- Some research shows generalist models can outperform clinical models on certain tasks
+- Trade-off between general vs specialized depends on use case
+
+### 11. Voyage AI Releases 2024-2025
+**URLs:**
+- https://blog.voyageai.com/2024/09/18/voyage-3/
+- https://blog.voyageai.com/2025/01/07/voyage-3-large/
+- https://towardsdatascience.com/voyage-multilingual-2-embedding-evaluation-a544ac8f7c4b/
+**Date Accessed:** 2025-10-17
+
+**Key Findings:**
+- voyage-3-large ranks first on 8 domains spanning 100 datasets
+- Outperforms OpenAI-v3-large by 9.74% average
+- Outperforms Cohere-v3-English by 20.71% average
+- Multilingual performance: Strong across 17 languages
+- Vietnamese, Portuguese, Finnish: Better than Google's embeddings
+
+**Cost Efficiency:**
+- voyage-3: $0.06/1M tokens (vs OpenAI $0.13)
+- voyage-3-lite: $0.02/1M tokens (6.5x cheaper than OpenAI v3-large)
+
+---
+
 ## Citations Format
 
 When referencing in presentation:
 - **Academic/Tutorial**: Source name, URL (e.g., "Pinecone Learning Center, pinecone.io/learn")
 - **Code Examples**: Repository name, URL
 - **Real-world Cases**: Company name, source
+- **Embedding Models**: Provider name, model name, benchmark source (e.g., "Voyage AI voyage-3, MTEB leaderboard")

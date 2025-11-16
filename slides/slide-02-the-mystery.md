@@ -11,7 +11,20 @@ Hook the audience with three compelling questions about familiar technologies th
 
 "Let me ask you three questions:
 
-**How does Netflix know you'll love that obscure documentary?** It's not just matching genres. Netflix uses embedding layers in neural networks that represent you and every movie as vectors in high-dimensional space. When your vector is close to a documentary's vector, that's a recommendation. They have over 1,300 recommendation clusters powered by vector similarity. This is from their own tech blog on foundation models for personalized recommendations.
+**How does Netflix know you'll love that obscure documentary?** Netflix uses foundation models with embedding layers that convert your viewing history and every title into vectors in high-dimensional space. These embeddings combine both your interaction patterns and content metadata (like genres, cast, and tone). When your user embedding is mathematically similar to a title's embedding, that's a potential recommendation. With over 300 million users generating hundreds of billions of interactions, Netflix's foundation model learns long-term preferences that transcend simple genre matching—enabling it to surface hidden gems you didn't know you'd love.
+
+Source 1: Netflix Tech Blog - Foundation Model for Personalized Recommendation
+
+URL: https://netflixtechblog.com/foundation-model-for-personalized-recommendation-1a0bd8e02d39Authors: Ko-Jen Hsiao, Yesu Feng, and Sudarshan LamkhedeDate:
+March 21, 2025Publisher: Netflix Technology Blog
+
+Key Information:
+- Netflix uses foundation models with vector embeddings to represent users and content in high-dimensional space
+- The model processes hundreds of billions of user interactions from over 300 million users
+- Uses embedding layers in neural networks to create user and item representations
+- Implements metadata-based embeddings combined with ID-based embeddings for recommendations
+- The embeddings capture long-term member preferences and enable personalized recommendations
+
 
 **How does Google Photos find every picture of your dog?** You never tagged those photos. Google's deep convolutional neural networks embed each image into a vector space where similar images cluster together. They call it "universal image embeddings" - launched in Google Photos back in March 2018. Nearest neighbor search in that vector space finds all your dog photos instantly.
 
