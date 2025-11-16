@@ -1,5 +1,6 @@
 import Main from './components/pages/main';
 import Lorem from './components/pages/lorem';
+import VectorStore from './components/pages/vectorstore';
 import Root from './Root';
 
 export const routes = [
@@ -10,6 +11,10 @@ export const routes = [
       {
         index: true,
         element: <Main />
+      },
+      {
+        path: 'vector-store',
+        element: <VectorStore />
       },
       {
         path: 'lorem',
