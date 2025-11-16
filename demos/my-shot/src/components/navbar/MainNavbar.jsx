@@ -1,8 +1,8 @@
-function MainNavbar(props) {
+function MainNavbar({title}) {
     return (
-        <nav className="border-b border-default">
+        <nav>
             <div className={"max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"}>
-                <h1>Hello World New</h1>
+                <h1 className={"text-xl font-semibold"}>{title}</h1>
             </div>
         </nav>
     )
