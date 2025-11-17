@@ -269,7 +269,7 @@ export default function TSNEVisualization() {
                   alignItems: 'center',
                   gap: 1,
                   p: 1,
-                  backgroundColor: '#f9f9f9',
+                  backgroundColor: 'action.hover',
                   borderRadius: 1,
                   borderLeft: `4px solid ${getColor(index)}`
                 }}
