@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import { StrictMode, useMemo } from 'react'
 import { StyledEngineProvider, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -13,7 +13,7 @@ const router = createBrowserRouter(routes);
 // Component that consumes the theme context
 function AppWithTheme() {
   const { mode } = useThemeMode();
-  const theme = createAppTheme(mode);
+  const theme = useMemo(() => createAppTheme(mode), [mode]);
 
   return (
     <MuiThemeProvider theme={theme}>
