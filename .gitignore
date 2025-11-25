@@ -7,3 +7,4 @@ tmp
 *.iml
 .vscode
 node_modules
+.playwright-mcp
