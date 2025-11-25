@@ -2,17 +2,10 @@
 
 @import "tailwindcss";
 
+/* Configure Tailwind v4 dark mode to use data-theme attribute */
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
-    --color-fg-brand-subtle: var(--color-blue-200);
-    --color-fg-brand: var(--color-blue-700);
-    --color-fg-brand-strong: var(--color-blue-900);
-
-    --color-brand-softer: var(--color-blue-50);
-    --color-brand-soft: var(--color-blue-100);
-    --color-brand: var(--color-blue-700);
-    --color-brand-medium: var(--color-blue-200);
-    --color-brand-strong: var(--color-blue-800);
-
     /* Font Family */
     --font-mono: "IBM Plex Mono", monospace;
 
@@ -35,9 +28,73 @@
     --text-4xl: 2.25rem;    /* 36px */
 }
 
+/* Light mode colors (default) */
+:root {
+    --color-fg-brand-subtle: var(--color-blue-200);
+    --color-fg-brand: var(--color-blue-700);
+    --color-fg-brand-strong: var(--color-blue-900);
+
+    --color-brand-softer: var(--color-blue-50);
+    --color-brand-soft: var(--color-blue-100);
+    --color-brand: var(--color-blue-700);
+    --color-brand-medium: var(--color-blue-200);
+    --color-brand-strong: var(--color-blue-800);
+
+    /* Light mode background and header */
+    --color-bg-main: #f0f9ff;        /* Very light blue (sky-50) */
+    --color-bg-header: #ffffff;      /* Pure white for contrast */
+    --color-border: #dbeafe;         /* Light blue border (blue-100) */
+
+    /* Light mode text colors */
+    --color-text-primary: rgba(0, 0, 0, 0.87);
+    --color-text-secondary: rgba(0, 0, 0, 0.6);
+}
+
+/* Dark mode colors */
+[data-theme="dark"] {
+    --color-fg-brand-subtle: var(--color-blue-800);
+    --color-fg-brand: var(--color-blue-300);
+    --color-fg-brand-strong: var(--color-blue-100);
+
+    --color-brand-softer: var(--color-blue-950);
+    --color-brand-soft: var(--color-blue-900);
+    --color-brand: var(--color-blue-500);
+    --color-brand-medium: var(--color-blue-700);
+    --color-brand-strong: var(--color-blue-400);
+
+    /* Dark mode background and header */
+    --color-bg-main: #0f172a;
+    --color-bg-header: #1e293b;
+    --color-border: #334155;
+
+    /* Dark mode text colors */
+    --color-text-primary: #ffffff;
+    --color-text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+@layer utilities {
+    .bg-header {
+        background-color: var(--color-bg-header);
+    }
+    .bg-main {
+        background-color: var(--color-bg-main);
+    }
+    .border-theme {
+        border-color: var(--color-border);
+    }
+    .text-primary {
+        color: var(--color-text-primary);
+    }
+    .text-secondary {
+        color: var(--color-text-secondary);
+    }
+}
+
 html, body, #root {
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-primary);
 }

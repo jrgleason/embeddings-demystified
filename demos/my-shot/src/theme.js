@@ -1,9 +1,38 @@
 import { createTheme } from '@mui/material/styles';
 
 // Create a theme that uses Tailwind CSS custom properties for typography
-// Note: Colors are handled via Tailwind classes rather than MUI theme
-// because CSS variables can't be used in createTheme (MUI needs actual color values)
-const theme = createTheme({
+// This function accepts a mode parameter to generate light or dark theme
+export const createAppTheme = (mode = 'light') => createTheme({
+  palette: {
+    mode,
+    ...(mode === 'light'
+      ? {
+          primary: {
+            main: '#1976d2',
+          },
+          background: {
+            default: '#ffffff',
+            paper: '#f5f5f5',
+          },
+          text: {
+            primary: 'rgba(0, 0, 0, 0.87)',
+            secondary: 'rgba(0, 0, 0, 0.6)',
+          },
+        }
+      : {
+          primary: {
+            main: '#90caf9',
+          },
+          background: {
+            default: '#121212',
+            paper: '#1e1e1e',
+          },
+          text: {
+            primary: '#ffffff',
+            secondary: 'rgba(255, 255, 255, 0.7)',
+          },
+        }),
+  },
   typography: {
     fontFamily: 'var(--font-mono)',
     fontSize: 16, // matches --text-base (1rem = 16px)
@@ -57,4 +86,5 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+// Export default light theme for backward compatibility
+export default createAppTheme('light');
