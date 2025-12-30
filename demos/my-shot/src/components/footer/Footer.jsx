@@ -31,7 +31,7 @@ function Footer() {
             color="text.secondary"
             sx={{ textAlign: { xs: 'center', sm: 'left' } }}
           >
-            This site is run by Jackie Gleason
+            This site is ran by Jackie Gleason
           </Typography>
 
           {/* Copyright section */}
