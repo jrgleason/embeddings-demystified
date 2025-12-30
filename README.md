@@ -164,4 +164,4 @@ This project is licensed under the [GNU General Public License v3.0](https://www
 
 ## Contact
 
-Jackie Gleason - Lead AI Developer @ NetJets
+Jackie Gleason

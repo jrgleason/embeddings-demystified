@@ -26,7 +26,7 @@
 - Presenter: Jackie Gleason
 
 ### Slide 2: Who am I
-- Lead AI Developer @ NetJets
+- Lead AI Developer
 - 20+ years experience
 - IoT and robotics hacker
 - 3D Printing enthusiast
