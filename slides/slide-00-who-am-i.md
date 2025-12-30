@@ -1,7 +1,7 @@
 # Who am I
 
 ## Bio
-- **Lead AI Developer NetJets**
+- **Lead AI Developer**
   - 20+ yrs experience
 - iOT and robotics hacker
 - 3D Printing enthusiast
