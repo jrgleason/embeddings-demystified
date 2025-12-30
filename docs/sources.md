@@ -608,6 +608,136 @@ This document tracks all sources used in developing the "Vector Databases and Em
 
 ---
 
+## t-SNE Visualization Research
+
+### 16. Distill.pub - How to Use t-SNE Effectively
+**URL:** https://distill.pub/2016/misread-tsne/
+**Title:** How to Use t-SNE Effectively
+**Authors:** Martin Wattenberg, Fernanda Viégas, Ian Johnson (Google Brain)
+**Date Published:** October 13, 2016
+**Date Accessed:** 2025-12-07
+**Cited By:** 1,154
+
+**Key Topics:**
+- Hyperparameter tuning (perplexity, learning rate, iterations)
+- Common t-SNE misinterpretations and pitfalls
+- Interactive visualizations showing parameter effects
+- Guidelines for reading t-SNE plots correctly
+
+**Key Findings:**
+- **Perplexity range**: Original paper suggests 5-50, but effects vary dramatically
+- **Perplexity must be smaller than number of points** to work properly
+- **Low perplexity (2-5)**: Creates artificial "clumps" even in random noise
+- **High perplexity**: Better for global structure but can merge clusters
+- **Multiple perplexities needed**: Different values reveal different aspects
+- **Convergence is critical**: Stopped early = misleading "pinched" shapes
+- **5,000 iterations recommended** for small datasets (but varies by data)
+
+**Critical Warnings:**
+1. **Cluster sizes mean nothing** - t-SNE equalizes cluster density
+2. **Distances between clusters may mean nothing** - Varies by perplexity
+3. **Random noise can look clustered** - Low perplexity creates false patterns
+4. **Shapes can be distorted** - Even correct topology may have curved distortions
+
+**Key Takeaways:**
+- t-SNE is powerful but requires careful interpretation
+- Always try multiple perplexity values (typically 5-50)
+- Run until convergence (no fixed iteration count works for all data)
+- Don't read too much into cluster sizes or inter-cluster distances
+- Recognize that low perplexity can create misleading structure
+
+---
+
+### 17. openTSNE Documentation - Parameter Guide
+**URL:** https://opentsne.readthedocs.io/en/latest/parameters.html
+**Title:** Parameter guide — openTSNE 1.0.0 documentation
+**Date Accessed:** 2025-12-07
+
+**Key Topics:**
+- Perplexity effects on local vs global structure
+- Exaggeration for cluster separation
+- Optimization parameters (learning rate, momentum)
+- Barnes-Hut and interpolation parameters
+
+**Key Findings:**
+- **Default perplexity: 30** in most implementations
+- **Small datasets (100 points)**: Perplexity 30 preserves 1/3 of data (good)
+- **Large datasets (10,000 points)**: Perplexity 30 only considers 30 neighbors (poor)
+- **Recommended for large datasets**: Perplexity 500+ for better global structure
+- **Perplexity linearly impacts runtime**: Higher values = longer execution
+- **Exaggeration = 12**: Standard for early exaggeration phase
+- **Learning rate "auto"**: Divides number of samples by exaggeration factor
+
+**Practical Guidelines:**
+- Perplexity is continuous analog to k-nearest neighbors
+- Balance between local and global structure preservation
+- Higher perplexity for larger datasets to capture global geometry
+- Use exaggeration in normal regime (not just early phase) for denser clusters
+- Iterate until stable configuration reached
+
+**Example Timings:**
+- Perplexity 30: ~1 minute 30 seconds
+- Perplexity 500: ~6 minutes
+
+---
+
+### 18. Two Six Technologies - New Guidance for Using t-SNE
+**URL:** https://twosixtech.com/blog/new-guidance-for-using-t-sne/
+**Title:** New Guidance for Using t-SNE
+**Authors:** Robert Gove, Lucas Cadalzo, Nicholas Leiby, Jedediah M. Singer, Alexander Zaitzeff
+**Published:** Journal of Visual Informatics (proc. Visualization Meets AI 2022)
+**Date Accessed:** 2025-12-07
+
+**Research Scope:**
+- **691 datasets** from UCI ML Repository, R datasets package, KEEL repository
+- **3-10,000 data points** per dataset, at least 3 dimensions
+- **236,496 t-SNE visualizations** generated
+- **Grid search parameters:**
+  - Exaggeration: {1,2,3,4,5,6,8,16,32,64,128}
+  - Learning rate: {10,20,40,80,160,320,640,1280}
+  - Perplexity: {1,2,4,8,16,32,64,128}
+
+**Key Findings - Recommended Ranges (NARROWER than previous guidance):**
+- **Perplexity: 2-16** (vs. van der Maaten 5-50, sklearn default 30)
+- **Exaggeration: 1-8** (vs. typical default 12)
+- **Learning rate: 10-640** (vs. sklearn 40-4,000)
+
+**Empirical Best Combination:**
+- **Perplexity = 16**
+- **Exaggeration = 1**
+- **Learning rate = 10**
+- Outperforms sklearn default substantially
+- Comparable to OpenTSNE defaults but simpler
+
+**Performance Comparison (Mean Accuracy Metric):**
+1. Oracle (always picks best): 0.764
+2. Empirical combination: 0.747
+3. OpenTSNE defaults: 0.746
+4. Neural network predictor: 0.739
+5. Sklearn (pre v1.2): 0.681 ⚠️
+6. "Rule of thumb" amalgamation: 0.619
+
+**Key Recommendations:**
+1. Use empirical combination (perplexity=16, exag=1, lr=10) as default
+2. If unsatisfied, try ranges above
+3. **Avoid old sklearn defaults** (upgrade to v1.2+)
+4. Try perplexity near n/100 where n = number of data points
+5. Try exaggeration near 1
+6. Try learning rate near n/12
+
+**Research Innovation:**
+- Developed neural network to predict optimal hyperparameters
+- Uses dataset features (size, dimensions, Scagnostic measures)
+- 100-400x faster than brute force grid search
+- Performs comparably to empirical/OpenTSNE methods
+
+**Key Insight:**
+- Domain-specific models would likely improve results further
+- Current research shows room for improvement over all methods
+- Different hyperparameters better for neighbors vs distances
+
+---
+
 ## Citations Format
 
 When referencing in presentation:
@@ -615,3 +745,4 @@ When referencing in presentation:
 - **Code Examples**: Repository name, URL
 - **Real-world Cases**: Company name, source
 - **Embedding Models**: Provider name, model name, benchmark source (e.g., "Voyage AI voyage-3, MTEB leaderboard")
+- **t-SNE Research**: "Wattenberg et al., Distill 2016" or "Gove et al., Journal of Visual Informatics 2022"
