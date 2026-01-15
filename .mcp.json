@@ -12,6 +12,20 @@
         "@playwright/mcp@latest"
       ],
       "env": {}
+    },
+    "jupyter": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "JUPYTER_URL",
+        "-e", "ALLOW_IMG_OUTPUT",
+        "datalayer/jupyter-mcp-server:latest"
+      ],
+      "env": {
+        "JUPYTER_URL": "http://host.docker.internal:8888",
+        "ALLOW_IMG_OUTPUT": "true"
+      }
     }
   }
 }

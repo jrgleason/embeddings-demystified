@@ -1,0 +1,23 @@
+# Qwen3 0.6B Fine-Tuning Dependencies
+# Updated: 2026-01-01
+# Choose based on your platform:
+
+# === For Apple Silicon Mac (MLX) - Native only, not in Docker ===
+mlx-lm[train]>=0.30.0
+
+# === For CPU/Docker/Colab (Transformers + PEFT) - PRIMARY METHOD ===
+transformers>=4.57.3
+peft>=0.18.0
+trl>=0.26.2
+accelerate>=1.12.0
+
+# === Common Dependencies ===
+datasets>=4.4.2
+torch>=2.2.0
+huggingface_hub>=0.27.0
+
+# === Optional: For GGUF export ===
+# llama-cpp-python  # Install separately if needed
+
+# === Python Version ===
+# Requires Python 3.10+
