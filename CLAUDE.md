@@ -250,7 +250,7 @@ PINECONE_API_KEY=your_key_here  # if using Pinecone
 
 # For local Ollama demos (embeddings-demo)
 OLLAMA_BASE_URL=http://localhost:11434  # or your Ollama server
-OLLAMA_MODEL=qwen3:0.6b
+OLLAMA_MODEL=qwen3.5:2b
 OLLAMA_EMBEDDING_MODEL=qwen3-embedding:0.6b
 ```
 

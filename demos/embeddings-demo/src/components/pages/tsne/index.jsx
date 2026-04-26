@@ -19,12 +19,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 export default function TSNEVisualization() {
     const canvasRef = useRef(null);
-    const [words, setWords] = useState([
-        'King', 'Queen', 'Man', 'Woman',
-        'Prince', 'Princess', 'Boy', 'Girl',
-        'Father', 'Mother', 'Brother', 'Sister',
-        'Uncle', 'Aunt', 'Son', 'Daughter'
-    ]);
+    const [words, setWords] = useState(['King', 'Queen', 'Man', 'Woman']);
     const [newWord, setNewWord] = useState('');
     const [editingIndex, setEditingIndex] = useState(null);
     const [editingValue, setEditingValue] = useState('');

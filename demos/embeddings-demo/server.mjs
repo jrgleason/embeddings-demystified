@@ -1,11 +1,11 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
-import {ChatOllama, OllamaEmbeddings} from "@langchain/ollama";
+import { ChatOllama, OllamaEmbeddings } from "@langchain/ollama";
 import { MemoryVectorStore } from "@langchain/classic/vectorstores/memory";
 
 const OLLAMA_BASE_URL = process.env.OLLAMA_BASE_URL || "http://localhost:11434";
-const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "qwen3:0.6b";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "qwen3.5:2b";
 const OLLAMA_EMBEDDING_MODEL = process.env.OLLAMA_EMBEDDING_MODEL || "qwen3-embedding:0.6b";
 
 // Log configuration at startup
@@ -14,6 +14,40 @@ console.log(`  Base URL: ${OLLAMA_BASE_URL}`);
 console.log(`  Chat Model: ${OLLAMA_MODEL}`);
 console.log(`  Embedding Model: ${OLLAMA_EMBEDDING_MODEL}`);
 console.log("============================");
+
+async function checkModelsAvailable() {
+  let data;
+  try {
+    const response = await fetch(`${OLLAMA_BASE_URL}/api/tags`);
+    if (!response.ok) {
+      console.error(`[startup] Ollama returned HTTP ${response.status} from ${OLLAMA_BASE_URL}/api/tags`);
+      process.exit(1);
+    }
+    data = await response.json();
+  } catch (err) {
+    console.error(`[startup] Cannot connect to Ollama at ${OLLAMA_BASE_URL}: ${err.message}`);
+    console.error(`[startup] Make sure Ollama is running: ollama serve`);
+    process.exit(1);
+  }
+
+  const available = new Set((data.models || []).map((m) => m.name.toLowerCase()));
+  const missing = [];
+
+  if (!available.has(OLLAMA_MODEL.toLowerCase())) {
+    missing.push(`Chat model "${OLLAMA_MODEL}" — run: ollama pull ${OLLAMA_MODEL}`);
+  }
+  if (!available.has(OLLAMA_EMBEDDING_MODEL.toLowerCase())) {
+    missing.push(`Embedding model "${OLLAMA_EMBEDDING_MODEL}" — run: ollama pull ${OLLAMA_EMBEDDING_MODEL}`);
+  }
+
+  if (missing.length > 0) {
+    console.error("[startup] Required Ollama models are not available:");
+    missing.forEach((m) => console.error(`  - ${m}`));
+    process.exit(1);
+  }
+
+  console.log("[startup] All required models available.");
+}
 
 const llm = new ChatOllama({
   baseUrl: OLLAMA_BASE_URL,
@@ -265,4 +299,96 @@ app.post("/ai/embedding", async (req, res) => {
   }
 });
 
-ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
+const RAG_SYSTEM_DEFAULT =
+  "You are a helpful assistant. Answer questions based on the provided context. " +
+  "If the context does not contain relevant information, say so clearly.";
+
+// POST /rag/chat — streams an SSE response: sources → tokens → done
+app.post("/rag/chat", async (req, res) => {
+  const {
+    message,
+    k = 4,
+    temperature = 0.2,
+    systemPrompt = RAG_SYSTEM_DEFAULT,
+  } = req.body || {};
+
+  if (!message?.trim()) {
+    return res.status(400).json({ error: "Message is required" });
+  }
+
+  res.setHeader("Content-Type", "text/event-stream");
+  res.setHeader("Cache-Control", "no-cache");
+  res.setHeader("Connection", "keep-alive");
+
+  const send = (data) => res.write(`data: ${JSON.stringify(data)}\n\n`);
+
+  let aborted = false;
+  req.on("close", () => { aborted = true; });
+
+  console.log(`[/rag/chat] message="${message.substring(0, 60)}" k=${k} temp=${temperature}`);
+
+  try {
+    // Step 1: Retrieve relevant docs from the shared vector store
+    const docs = await vectorStore.similaritySearchWithScore(message, Number(k));
+    const sources = docs.map(([doc, score]) => ({
+      content: doc.pageContent,
+      score,
+      metadata: doc.metadata,
+    }));
+    send({ type: "sources", sources });
+    console.log(`[/rag/chat] Retrieved ${docs.length} docs, starting LLM stream...`);
+
+    // Step 2: Build context string
+    const context = docs.length > 0
+      ? docs.map(([doc]) => doc.pageContent).join("\n\n---\n\n")
+      : "No relevant documents found in the vector store.";
+
+    // Step 3: Fetch from Ollama chat API with thinking disabled.
+    // We use stream:true for NDJSON then buffer via .text() and parse,
+    // because ReadableStream.getReader() is unreliable inside vite-express.
+    const ollamaRes = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        stream: true,
+        think: false,
+        options: { temperature: Number(temperature) },
+        messages: [
+          { role: "system", content: `${systemPrompt}\n\nContext from knowledge base:\n${context}` },
+          { role: "user",   content: message },
+        ],
+      }),
+    });
+
+    if (!ollamaRes.ok) {
+      throw new Error(`Ollama returned HTTP ${ollamaRes.status}`);
+    }
+
+    const ndjson = await ollamaRes.text();
+    let tokenCount = 0;
+
+    for (const line of ndjson.split("\n")) {
+      if (!line.trim()) continue;
+      try {
+        const evt = JSON.parse(line);
+        if (evt.message?.content) {
+          send({ type: "token", token: evt.message.content });
+          tokenCount++;
+        }
+      } catch (_) { /* skip malformed lines */ }
+    }
+
+    console.log(`[/rag/chat] Done — ${tokenCount} tokens`);
+    if (!aborted) send({ type: "done" });
+  } catch (err) {
+    console.error("[/rag/chat] ERROR:", err.message);
+    send({ type: "error", error: err.message });
+  } finally {
+    res.end();
+  }
+});
+
+checkModelsAvailable().then(() => {
+  ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));
+});

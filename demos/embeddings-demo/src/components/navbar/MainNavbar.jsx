@@ -57,6 +57,13 @@ function MainNavbar({title}) {
                     </Link>
                     <Link
                         component={RouterLink}
+                        to="/rag-chat"
+                        sx={getLinkStyles('/rag-chat')}
+                    >
+                        RAG Chat
+                    </Link>
+                    <Link
+                        component={RouterLink}
                         to="/tsne-viz"
                         sx={getLinkStyles('/tsne-viz')}
                     >
