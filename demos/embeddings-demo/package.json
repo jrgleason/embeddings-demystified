@@ -11,14 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@assistant-ui/react": "^0.12.26",
+    "@assistant-ui/react": "latest",
     "@mui/icons-material": "latest",
     "@thi.ng/tsne": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "react-markdown": "^10.1.0",
+    "react-markdown": "latest",
     "react-router-dom": "latest",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "latest"
   },
   "devDependencies": {
     "@emotion/react": "latest",
