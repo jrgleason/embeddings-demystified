@@ -1,0 +1,43 @@
+{
+  "name": "embeddings",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs",
+    "build": "vite build",
+    "lint": "eslint src/",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@assistant-ui/react": "^0.12.26",
+    "@mui/icons-material": "latest",
+    "@thi.ng/tsne": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "latest",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@eslint/js": "latest",
+    "@langchain/classic": "latest",
+    "@langchain/community": "latest",
+    "@langchain/core": "latest",
+    "@langchain/ollama": "latest",
+    "@mui/material": "latest",
+    "@tailwindcss/vite": "latest",
+    "@vitejs/plugin-react-swc": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "eslint-plugin-react-refresh": "latest",
+    "express": "latest",
+    "globals": "latest",
+    "tailwindcss": "latest",
+    "vite": "latest",
+    "vite-express": "latest"
+  }
+}

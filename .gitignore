@@ -1,3 +1,4 @@
+.DS_Store
 .idea
 .claude
 .iml
@@ -8,3 +9,6 @@ tmp
 .vscode
 node_modules
 .playwright-mcp
+.opencode
+archive
+.codebuddy

@@ -1,3 +1,22 @@
+<!-- OPENSPEC:START -->
+# OpenSpec Instructions
+
+These instructions are for AI assistants working in this project.
+
+Always open `@/openspec/AGENTS.md` when the request:
+- Mentions planning or proposals (words like proposal, spec, change, plan)
+- Introduces new capabilities, breaking changes, architecture shifts, or big performance/security work
+- Sounds ambiguous and you need the authoritative spec before coding
+
+Use `@/openspec/AGENTS.md` to learn:
+- How to create and apply change proposals
+- Spec format and conventions
+- Project structure and guidelines
+
+Keep this managed block so 'openspec update' can refresh the instructions.
+
+<!-- OPENSPEC:END -->
+
 # Vector Databases and Embeddings Demystified
 
 ## Project Overview
@@ -51,7 +70,7 @@ Vector Databases/
 │   └── outline.md           # Detailed 2-hour presentation outline
 ├── demos/                   # Live demo code
 │   ├── basic_embedding/     # Basic t-SNE embedding visualization
-│   ├── my-shot/             # Interactive React demo (main demo app)
+│   ├── embeddings-demo/     # Interactive React demo (main demo app)
 │   │   ├── Vector Store     # Add/search/clear vector embeddings
 │   │   ├── t-SNE Viz        # Interactive word embedding visualization
 │   │   └── Embedding        # Display raw embedding vectors
@@ -186,7 +205,7 @@ Each demo must:
 - Ollama (for local embeddings)
 - OpenAI API key (for cloud demos)
 
-### JavaScript/Node.js Stack (my-shot demo)
+### JavaScript/Node.js Stack (embeddings-demo)
 ```json
 {
   "dependencies": {
@@ -229,9 +248,9 @@ python-dotenv
 OPENAI_API_KEY=your_key_here
 PINECONE_API_KEY=your_key_here  # if using Pinecone
 
-# For local Ollama demos (my-shot)
+# For local Ollama demos (embeddings-demo)
 OLLAMA_BASE_URL=http://localhost:11434  # or your Ollama server
-OLLAMA_MODEL=qwen3:0.6b
+OLLAMA_MODEL=qwen3.5:2b
 OLLAMA_EMBEDDING_MODEL=qwen3-embedding:0.6b
 ```
 
@@ -273,7 +292,7 @@ OLLAMA_EMBEDDING_MODEL=qwen3-embedding:0.6b
 
 ## Demo Descriptions
 
-### Interactive Demo: my-shot (React Web App)
+### Interactive Demo: embeddings-demo (React Web App)
 **Goal:** Interactive visualization and exploration of vector embeddings
 **Tech:** React + Material-UI + LangChain + Ollama + Express
 **Status:** ✅ Implemented
@@ -309,7 +328,7 @@ OLLAMA_EMBEDDING_MODEL=qwen3-embedding:0.6b
 
 **To Run:**
 ```bash
-cd demos/my-shot
+cd demos/embeddings-demo
 npm install
 npm run dev
 # Visit http://localhost:3000
@@ -412,7 +431,7 @@ npm run dev
 ## Recent Updates
 
 ### 2025-11-16
-- ✅ Implemented complete my-shot React demo application
+- ✅ Implemented complete embeddings-demo React demo application
 - ✅ Added Vector Store page with add/search/clear functionality
 - ✅ Added t-SNE Visualization page with interactive word management
 - ✅ Added Embedding Display page showing raw vectors
