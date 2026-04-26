@@ -9,3 +9,6 @@ tmp
 .vscode
 node_modules
 .playwright-mcp
+.opencode
+archive
+.codebuddy
