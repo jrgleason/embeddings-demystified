@@ -22,10 +22,10 @@ A comprehensive 2-hour technical presentation for CodeMash 2025 that demystifies
 
 ## Quick Start - Interactive Demo
 
-The `my-shot` demo provides an interactive way to explore vector embeddings:
+The `embeddings-demo` provides an interactive way to explore vector embeddings:
 
 ```bash
-cd demos/my-shot
+cd demos/embeddings-demo
 npm install
 npm run dev
 ```
@@ -57,7 +57,7 @@ Vector Databases/
 │   ├── requirements.md      # Functional and technical requirements
 │   └── design.md            # Presentation architecture
 ├── demos/
-│   ├── my-shot/             # Interactive React demo (main demo app)
+│   ├── embeddings-demo/     # Interactive React demo (main demo app)
 │   │   ├── src/
 │   │   │   ├── components/  # React components
 │   │   │   └── server/      # Express backend with Ollama integration
@@ -119,7 +119,7 @@ Vector Databases/
 
 ## Tech Stack
 
-### Interactive Demo (my-shot)
+### Interactive Demo (embeddings-demo)
 - React + Vite
 - Material-UI
 - Express backend
@@ -135,7 +135,7 @@ Vector Databases/
 
 ## Environment Variables
 
-Create a `.env` file in `demos/my-shot/`:
+Create a `.env` file in `demos/embeddings-demo/`:
 
 ```bash
 # For local Ollama demos
